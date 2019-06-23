@@ -8,10 +8,10 @@
 export default {
   name: '',
   components: {},
-  data() {
+  data () {
     return {}
   }
-};
+}
 </script>
 
 <style scoped lang="less">
