@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import "@/vendor/gt.js";
 const initShowCode = 10;
 export default {
@@ -54,9 +54,9 @@ export default {
   data() {
     return {
       form: {
-        mobile: "15735648281",
-        code: "",
-        agree: "" //是否同意用户协议
+        mobile: "13911111111",
+        code: "123456",
+        agree: true //是否同意用户协议
       },
       loginLoding: false,
       rules: {
@@ -93,14 +93,14 @@ export default {
     },
     submitLogin() {
       (this.loginLoding = true),
-        axios({
+        this.$http({
           method: "POST",
-          url: "http://ttapi.research.itcast.cn/mp/v1_0/authorizations",
+          url: "/authorizations",
           data: this.form
         })
-          .then(res => {
+          .then(data => {
             // 在登录成功之后将返回的用户信息放到本地存储
-            window.localStorage.setItem('user_info',JSON.stringify(res.data.data))
+            window.localStorage.setItem('user_info',JSON.stringify(data))
             // 使用组件提示信息
             this.$message({
               message: "恭喜你，这是一条成功消息",
@@ -115,7 +115,7 @@ export default {
           .catch(err => {
             if (err.response.status === 400) {
               this.$message.error("登录失败，手机号或者验证码错误");
-              console.dir(err);
+              // console.dir(err);
               this.loginLoding = false;
             }
           });
@@ -142,13 +142,13 @@ export default {
       // const { mobile } = this.form;
       // 在初始化期间禁用
       this.codeLoading = true
-      axios({
+      this.$http({
         method: "GET",
-        url: `http://ttapi.research.itcast.cn/mp/v1_0/captchas/${this.form.mobile}`
-      }).then(res => {
+        url: `/captchas/${this.form.mobile}`
+      }).then(data => {
         // 这里得到的是一个数组，数组里面的data
         // console.log(res.data)
-        const data = res.data.data;
+        // const data = data;
         window.initGeetest(
           {
             gt: data.gt,
@@ -175,16 +175,16 @@ export default {
                   geetest_validate: validate
                 } = captchaObj.getValidate();
                 // 调用 获取短信验证码接口
-                axios({
+                this.$http({
                   method: "GET",
-                  url: `http://ttapi.research.itcast.cn/mp/v1_0/sms/codes/${this.form.mobile}`,
+                  url: `/sms/codes/${this.form.mobile}`,
                   //这个参数用来 传递 query 查询字符串参数
                   params: {
                     challenge,
                     seccode,
                     validate
                   }
-                }).then(res => {
+                }).then(data => {
                   // console.log(res.data);
                   // 在这里发送验证码成功，这里显示倒计时
                   this.codeCutDown();
