@@ -21,7 +21,11 @@ module.exports = {
      "comma-dangle":0,
      "no-sequences":0,
      "no-unused-expressions":0,
-     "key-spacing":0
+     "key-spacing":0,
+     "no-trailing-spaces":0,
+     "object-curly-spacing":0,
+     "space-before-blocks":0,
+     'keyword-spacing':0
   },
   parserOptions: {
     parser: 'babel-eslint'
