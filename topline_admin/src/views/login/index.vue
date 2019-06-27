@@ -54,8 +54,8 @@ export default {
   data() {
     return {
       form: {
-        mobile: "13911111111",
-        code: "123456",
+        mobile: "15534026691",
+        code: "246810",
         agree: true //是否同意用户协议
       },
       loginLoding: false,
