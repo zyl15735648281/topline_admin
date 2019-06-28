@@ -27,7 +27,10 @@ module.exports = {
      "space-before-blocks":0,
      'keyword-spacing':0,
      'no-undef':0,
-     'padded-blocks':0
+     'padded-blocks':0,
+     'vue/no-duplicate-attributes':0,
+     'no-multi-spaces':0,
+     'no-unused-vars':0
   },
   parserOptions: {
     parser: 'babel-eslint'

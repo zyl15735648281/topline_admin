@@ -15,10 +15,14 @@
           </el-radio-group>
         </el-form-item>
         <!-- 这里是考虑到用户输入为空查不到数据 -->
-        <el-form-item label="频道列表">
+        <!-- <el-form-item label="频道列表">
           <el-select v-model="filterParams.channel_id" placeholder="请选择">
-            <el-option label="全部" value="" v-for="item in channels" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            <el-option label="全部" value=""></el-option>
+            <el-option v-for="item in channels" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
+        </el-form-item> -->
+        <el-form-item label="频道列表">
+          <article-channel v-model="filterParams.channel_id"></article-channel>
         </el-form-item>
         <!-- 这里使用change事件，必须使用v-model，但是绑定又不知道怎么绑，他要求返回的是数组，两个时间，所以解决办法： -->
         <!-- 给model随便绑定一个数据，定义一个空数组，绑定 -->
@@ -65,9 +69,16 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" circle></el-button>
+            <!-- 两种方式 -->
+            <!-- <el-button type="primary" icon="el-icon-edit" circle @click="$router.push(`/publish/${scope.row.id}`)"></el-button> -->
+            <el-button type="primary" icon="el-icon-edit" circle @click="$router.push({
+              name:'publish-edit',
+              params:{
+                id:scope.row.id
+              }
+            })"></el-button>
           <!-- <el-button type="info" icon="el-icon-message" circle></el-button> -->
-          <el-button type="danger" icon="el-icon-delete" circle @click="handelDel(scope.row)"></el-button>
+          <el-button type="danger" icon="el-icon-delete" circle @click.native="handelDel(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -91,9 +102,12 @@
 </template>
 
 <script>
+import ArticleChannel from '@/components/article-channel'
 export default {
   name: "",
-  components: {},
+  components: {
+    ArticleChannel
+  },
   data() {
     return {
       articles: [],
@@ -228,7 +242,11 @@ export default {
       // 这里不传参默认 page 为1
       this.page = 1 //让页码回到第一页
       this.loadData()  //加载第一页的数据
-    }
+    },
+    // handelEdit() {
+    //   method:'PUT',
+    //   url: `/articles/:${this.$router.id}`
+    // }
   }
 };
 </script>
