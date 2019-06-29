@@ -227,7 +227,7 @@ export default {
           this.$message({
             type: 'info',
             message: '已取消删除'
-          });          
+          });
         });
     },
     // 这里处理时间的改变

@@ -21,7 +21,7 @@ axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 // 【axios的一个API，axios拿到数据之后，默认会按照JSON格式转换成对象，进入拦截器中的数据是axios处理过的，把原始的JSON格式的字符串转换成javaScript，这里的data就是发送请求前得到的原始数据】
 // console.log(typeof data);
 // 思路：在外面先转换成JSON格式的字符串，然后再在拦截器中使用json-bigint来处理JSON字符串中超出安全范围的数字问题
-axios.defaults.transfromResponse = [function (data) {
+axios.defaults.transformResponse = [function (data) {
   // console.log(typeof data);
   // data 是未经后端处理的后端响应数据：JSON 格式字符串
   try {

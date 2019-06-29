@@ -16,40 +16,32 @@
       </el-menu-item>
       <el-submenu index="1">
         <template slot="title">
-          <i class="iconfont icon-document"></i>
+          <i class="el-icon-folder"></i>
           <span>内容</span>
         </template>
         <el-menu-item index="/publish">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-printer"></i>
           <span slot="title">发布</span>
         </el-menu-item>
         <el-menu-item index="/article">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-document-copy"></i>
           <span slot="title">内容列表</span>
-        </el-menu-item>
-        <el-menu-item index="1-4">
-          <i class="el-icon-menu"></i>
-          <span slot="title">评论列表</span>
-        </el-menu-item>
-        <el-menu-item index="1-5">
-          <i class="el-icon-menu"></i>
-          <span slot="title">素材管理</span>
         </el-menu-item>
       </el-submenu>
       <el-menu-item index="/comment">
-        <i class="el-icon-setting"></i>
+        <i class="el-icon-more-outline"></i>
         <span slot="title">评论</span>
       </el-menu-item>
       <el-menu-item index="/image">
-        <i class="el-icon-setting"></i>
+        <i class="el-icon-s-cooperation"></i>
         <span slot="title">素材</span>
       </el-menu-item>
       <el-menu-item index="/fans">
-        <i class="el-icon-setting"></i>
+        <i class="el-icon-s-flag"></i>
         <span slot="title">粉丝</span>
       </el-menu-item>
       <el-menu-item index="/account">
-        <i class="el-icon-setting"></i>
+        <i class="el-icon-s-custom"></i>
         <span slot="title">账户</span>
       </el-menu-item>
     </el-menu>

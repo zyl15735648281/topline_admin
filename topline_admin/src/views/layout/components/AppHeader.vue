@@ -5,11 +5,12 @@
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
           <img width="30" :src="userInfo.photo">
-          {{ userInfo.name }}<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ userInfo.name }}
+          <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>账户设置</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item @click.native="handellogout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>
@@ -18,18 +19,43 @@
 
 <script>
 export default {
-  name: 'AppHeader',
+  name: "AppHeader",
   components: {},
-  data () {
+  data() {
     return {
-      userInfo:{}
-    }
+      userInfo: {}
+    };
   },
   created() {
     // 因为拿到的是对象，所以需要转成JSON格式，然后再转回来
-    this.userInfo = JSON.parse(window.localStorage.getItem('user_info')) 
+    this.userInfo = JSON.parse(window.localStorage.getItem("user_info"));
+  },
+  methods: {
+    handellogout() {
+      this.$confirm("此操作将退出页面, 是否继续?", "退出提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          window.localStorage.removeItem("user_info");
+          this.$message({
+            type: "success",
+            message: "退出成功!"
+          });
+          this.$router.push({
+            name: "login"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消退出"
+          });
+        });
+    }
   }
-}
+};
 </script>
 
 <style scoped lang="less">
@@ -38,16 +64,16 @@ export default {
   display: flex;
   align-items: center;
 }
- .el-dropdown-link {
+.el-dropdown-link {
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: #409EFF;
+  color: #409eff;
   img {
     border-radius: 50%;
   }
 }
- .el-icon-arrow-down {
+.el-icon-arrow-down {
   font-size: 12px;
 }
 </style>
