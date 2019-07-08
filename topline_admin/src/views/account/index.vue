@@ -22,22 +22,21 @@
             <el-input v-model="userInfo.type"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary">保存更新</el-button>
+            <el-button type="primary" @click="handelUpload">保存更新</el-button>
           </el-form-item>
         </el-form>
       </el-col>
       <el-col :offset="2" :span="4">
+        <!-- 这里本来可以自己发送页面，但是不可以需要使用axios发送求情 -->
         <el-upload
           class="avatar-uploader"
           action="http://ttapi.research.itcast.cn/mp/v1_0/user/photo"
           :headers="{Authorization:token}"
           name="photo"
           :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload"
           :http-request="handelUpload"
         >
-          <img v-if="userInfo.photo" :src="userInfo.photo" class="avatar">
+          <img v-if="$store.state.user.photo" :src="$store.state.user.photo" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-col>
@@ -94,8 +93,6 @@ export default {
           this.$message.error("更新用户信息失败");
         });
     },
-    handleAvatarSuccess() {},
-    beforeAvatarUpload() {},
     handelUpload(uploadConfig) {
       // axios 上传文件
       // 1.构建一个formData表单对象，将文件对象添加到formdata中
@@ -108,7 +105,10 @@ export default {
         data: formData
       })
         .then(data => {
-          this.userInfo.photo = data.photo;
+          console.log(data);
+          // this.userInfo.photo = data.photo;
+          // 提交mutation的内容，更改用户信息
+          this.$store.commit('changeUser',data)
           this.$message({
             type: "success",
             message: "上传成功"

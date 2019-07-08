@@ -7,7 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './styles/index.less'
 import 'nprogress/nprogress.css'
 import JSONbig from 'json-bigint'
+import '@/components/common/js/otherRender.js'
 import App from './App.vue'
+import store from './store'
 // 全局配置路径，为了减少每次请求都写那么长的路径
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 // 这里为什么将axios放在原型中就可以直接在页面中 this.xxx 使用了，
@@ -78,7 +80,31 @@ Vue.prototype.$http = axios
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+Vue.directive('otherRender',{
+  inserted:function (el,name,vm) {
+    var  icon='';
+    var  vClass='';
+    var  type=vm.context.type;
+    AllBrnName:forEach(function (item) {
+      if(type.indexOf(item.type)!=-1){
+        vClass=item.class;
+        icon=item.icon;
+      }
+    });
+    var  className=el.getAttribute('class').split('');
+    className.push(vClass)
+    el.setAttribute('class',className.jion(''));
+    //添加图标
+    vm.context.otherRender=function (h) {
+      return h('i',{
+        class:icon
+      })
+    }
+  }
+})
+
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

@@ -31,7 +31,12 @@ module.exports = {
      'vue/no-duplicate-attributes':0,
      'no-multi-spaces':0,
      'no-unused-vars':0,
-     'eol-last':0
+     'eol-last':0,
+     'handle-callback-err':0,
+     'no-multiple-empty-lines':0,
+     'space-infix-ops':0,
+     'eqeqeq':0,
+     'no-labels':0
   },
   parserOptions: {
     parser: 'babel-eslint'
